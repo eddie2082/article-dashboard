@@ -1,0 +1,58 @@
+{
+  "last_updated": "2026-02-19 16:16:01 KST",
+  "projects": [
+    {
+      "name": "Essay_team",
+      "type": "essay",
+      "status": "completed",
+      "path": "Essay_team",
+      "last_updated": "2026-02-19 16:16:01 KST",
+      "last_published_essay": "Essay_03",
+      "last_published_title": "희소성의 가치는 어디에서 시작되는가",
+      "notion_page_url": "https://www.notion.so/30be6aeb59e68111a0cbefa858e0b9ae",
+      "content_master_url": "https://www.notion.so/30ae6aeb59e681b1ad39e7b980f99734"
+    },
+    {
+      "name": "article_team",
+      "type": "article",
+      "status": "completed",
+      "path": "article_team",
+      "last_updated": "2026-02-18 12:51:46 KST",
+      "last_published_article": "Article_001",
+      "notion_page_url": "https://www.notion.so/30be6aeb59e6815eb8b2dfe0721db721",
+      "content_master_url": "https://www.notion.so/30be6aeb59e681018991e2cc1fec89df"
+    }
+  ],
+  "essays": [
+    {
+      "id": "essay_01",
+      "name": "Essay_01",
+      "title": "AI 시대의 인간적인 글의 의미",
+      "status": "published",
+      "final_path": "Essay_team/Essay_01/final.md",
+      "published_at": "2026-02-18 12:00:00 KST"
+    },
+    {
+      "id": "essay_02",
+      "name": "Essay_02",
+      "title": "인간적인 글은 무엇으로 증명되는가",
+      "status": "published",
+      "final_path": "Essay_team/Essay_02/final.md",
+      "notion_page_url": "https://www.notion.so/30be6aeb59e68111a0cbefa858e0b9ae",
+      "published_at": "2026-02-18 19:41:51 KST"
+    },
+    {
+      "id": "essay_03",
+      "name": "Essay_03",
+      "title": "희소성의 가치는 어디에서 시작되는가",
+      "status": "published",
+      "final_path": "Essay_team/Essay_03/final.md",
+      "published_at": "2026-02-19 16:16:01 KST"
+    }
+  ],
+  "summary": {
+    "essay_active": 0,
+    "article_active": 0,
+    "completed": 2
+  }
+}

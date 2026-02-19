@@ -1,0 +1,310 @@
+/* ===== 8-bit Dungeon Skin ===== */
+:root{
+  --bg:#06070c;
+  --ink:#e9f2ff;
+  --muted:#9fb3d7;
+
+  --px1:#0b1020;
+  --px2:#101a33;
+  --line:#2a3d6a;
+
+  --mint:#00f5d4;
+  --amber:#ffcc00;
+  --red:#ff4d4f;
+  --blue:#4da3ff;
+
+  --shadow: rgba(0,0,0,0.55);
+}
+
+/* pixel-ish font fallback (no downloads) */
+body{
+  margin:0;
+  background:
+    radial-gradient(900px 600px at 20% 10%, rgba(0,245,212,0.10), transparent 60%),
+    radial-gradient(900px 600px at 80% 20%, rgba(77,163,255,0.08), transparent 60%),
+    var(--bg);
+  color:var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Apple SD Gothic Neo", monospace;
+}
+
+/* CRT scanline overlay */
+.crt::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.045) 0px,
+      rgba(255,255,255,0.045) 1px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,0) 4px
+    );
+  mix-blend-mode: overlay;
+  opacity:0.22;
+}
+
+/* slight vignette */
+.crt::after{
+  content:"";
+  position:fixed;
+  inset:-40px;
+  pointer-events:none;
+  background: radial-gradient(closest-side, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%);
+  opacity:0.7;
+}
+
+.container{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+/* Top HUD */
+.hudbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(16,26,51,0.9), rgba(11,16,32,0.82));
+  border: 2px solid var(--line);
+  box-shadow: 0 10px 30px var(--shadow);
+  margin-bottom: 12px;
+}
+
+/* Pixel border: no radius */
+.px-panel{
+  background: linear-gradient(180deg, rgba(16,26,51,0.9), rgba(11,16,32,0.84));
+  border: 2px solid var(--line);
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.px-title{
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.px-sub{
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.btn{
+  padding: 10px 12px;
+  border: 2px solid var(--line);
+  background: rgba(11,16,32,0.7);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.btn:hover{
+  border-color: rgba(0,245,212,0.55);
+  box-shadow: 0 0 0 2px rgba(0,245,212,0.12);
+}
+.btn-on{
+  border-color: rgba(0,245,212,0.85);
+  box-shadow: 0 0 0 2px rgba(0,245,212,0.18), 0 0 20px rgba(0,245,212,0.12);
+}
+
+.badge{
+  display:inline-block;
+  padding: 4px 10px;
+  border: 2px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 12px;
+}
+
+@media (max-width: 960px){
+  .grid2{ grid-template-columns: 1fr; }
+}
+
+/* Dungeon map */
+.map{
+  position:relative;
+  height: 420px;
+  background:
+    /* tile pattern */
+    linear-gradient(45deg, rgba(255,255,255,0.04) 25%, transparent 25%) 0 0/24px 24px,
+    linear-gradient(-45deg, rgba(255,255,255,0.04) 25%, transparent 25%) 0 0/24px 24px,
+    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.04) 75%) 0 0/24px 24px,
+    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.04) 75%) 0 0/24px 24px,
+    radial-gradient(900px 500px at 30% 20%, rgba(0,245,212,0.09), transparent 60%),
+    linear-gradient(180deg, rgba(6,7,12,0.65), rgba(11,16,32,0.95));
+  border-top: 2px solid rgba(255,255,255,0.04);
+  overflow:hidden;
+}
+
+/* grid overlay */
+.mapGrid{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(42,61,106,0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42,61,106,0.25) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity:0.55;
+  pointer-events:none;
+}
+
+.room{
+  position:absolute;
+  width: 120px;
+  height: 56px;
+  border: 2px solid rgba(42,61,106,0.95);
+  background: rgba(11,16,32,0.78);
+  cursor:pointer;
+  padding: 8px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:left;
+}
+.room:hover{
+  border-color: rgba(0,245,212,0.65);
+  box-shadow: 0 0 18px rgba(0,245,212,0.08);
+}
+.roomSelected{
+  border-color: rgba(0,245,212,0.95);
+  box-shadow: 0 0 0 2px rgba(0,245,212,0.20), 0 0 24px rgba(0,245,212,0.10);
+}
+.roomName{
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.roomRole{
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* corridor */
+.corridor{
+  position:absolute;
+  background: rgba(42,61,106,0.55);
+  border: 1px solid rgba(42,61,106,0.85);
+}
+
+/* player marker (2D icon) */
+.player{
+  position:absolute;
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(0,245,212,0.55);
+  background: rgba(0,245,212,0.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 0 18px rgba(0,245,212,0.12);
+  transition: left 180ms steps(6), top 180ms steps(6);
+}
+.player img{
+  width: 22px;
+  height: 22px;
+  image-rendering: pixelated;
+}
+
+/* Quest list */
+.questList{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  max-height: 420px;
+  overflow:auto;
+  padding: 12px;
+}
+.quest{
+  text-align:left;
+}
+.questTop{
+  display:flex;
+  justify-content:space-between;
+  gap: 10px;
+}
+.questTitle{
+  font-weight: 900;
+  letter-spacing: 0.8px;
+}
+.questMeta{
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* biome glow */
+.qTreasure{ box-shadow: 0 0 0 2px rgba(0,245,212,0.15), 0 0 18px rgba(0,245,212,0.10); }
+.qFog{ box-shadow: 0 0 0 2px rgba(255,204,0,0.12), 0 0 18px rgba(255,204,0,0.08); }
+.qTrap{ box-shadow: 0 0 0 2px rgba(255,77,79,0.16), 0 0 18px rgba(255,77,79,0.10); }
+.qCave{ box-shadow: 0 0 0 2px rgba(77,163,255,0.12), 0 0 18px rgba(77,163,255,0.08); }
+.qRuins{ opacity:0.85; }
+
+/* Inspector */
+.inspector{
+  padding: 12px;
+}
+.hr{
+  height:1px;
+  background: rgba(42,61,106,0.65);
+  margin: 12px 0;
+}
+.mono{
+  white-space: pre-wrap;
+  color: var(--ink);
+  font-size: 12px;
+}
+.muted{
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Force dungeon skin to override any app-wide light styles */
+html, body, #root {
+  height: 100%;
+  background: var(--bg) !important;
+}
+
+.container, .header, main {
+  background: transparent !important;
+}
+
+/* kill rounded cards if they leak */
+.card {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.torch{
+  position:absolute;
+  width: 10px; height: 18px;
+  background: var(--amber);
+  border: 2px solid rgba(255,204,0,0.55);
+  box-shadow: 0 0 18px rgba(255,204,0,0.35);
+}
+.torch::after{
+  content:"";
+  position:absolute;
+  left:-10px; top:-10px;
+  width: 30px; height: 30px;
+  background: radial-gradient(circle, rgba(255,204,0,0.35), transparent 60%);
+}
+
+.door{
+  position:absolute;
+  width: 34px; height: 46px;
+  background: rgba(42,61,106,0.55);
+  border: 2px solid rgba(42,61,106,0.95);
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.35);
+}

@@ -1,0 +1,32 @@
+
+1. 새로운 폴더 및 기본 파일 생성
+Create a new essay project inside essay_team.
+Generate a new folder named essay_### following the existing numbering rule.
+Inside the folder, create:
+
+- 00_voice_reference (do not modify, reference only)
+- 01_brief.md (insert the advanced brief template)
+- 02_research.md
+- 03_rebuttal.md
+- 04_structure.md
+- 05_draft.md
+- 06_refine.md
+- final.md
+
+Do not start writing the essay.
+Stop after creating the project structure.
+
+
+2. 브리프 작성 후 진행
+Initialize this essay project.
+Insert the advanced brief template into 01_brief.md.
+Do not proceed beyond brief stage.
+
+
+3. 실행
+Run the full essay workflow for Essay_team/<Essay_XX> and auto-publish immediately after final.md generation.
+
+Follow workflow_rules.md strictly.
+Do not skip research, rebuttal, structural design, or refinement stages.
+Generate the final result only after all intermediate stages are completed.
+
