@@ -11,7 +11,7 @@ Inside the folder, create:
 - 04_structure.md
 - 05_draft.md
 - 06_refine.md
-- final.md
+- 07_final.md
 
 Do not start writing the essay.
 Stop after creating the project structure.

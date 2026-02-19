@@ -10,9 +10,9 @@
 - `Essay_team` (`essay`)  
   - Status: `completed`
   - Path: `Essay_team`
-  - Updated: `2026-02-19 16:16:01 KST`
+  - Updated: `2026-02-19 16:58:00 KST`
   - Last Published Essay: `Essay_03`
-  - Last Published Title: `희소성의 가치는 어디에서 시작되는가`
+  - Last Published Title: `희소성은 무엇을 견딘 문장인가`
 - `article_team` (`article`)  
   - Status: `completed`
   - Path: `article_team`
@@ -26,4 +26,4 @@
 - Active Essays: `0`
 - Active Articles: `0`
 - Completed: `2`
-- Last Updated: `2026-02-19 16:16:01 KST`
+- Last Updated: `2026-02-19 16:58:00 KST`

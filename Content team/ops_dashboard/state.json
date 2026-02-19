@@ -1,14 +1,14 @@
 {
-  "last_updated": "2026-02-19 16:16:01 KST",
+  "last_updated": "2026-02-19 16:58:00 KST",
   "projects": [
     {
       "name": "Essay_team",
       "type": "essay",
       "status": "completed",
       "path": "Essay_team",
-      "last_updated": "2026-02-19 16:16:01 KST",
+      "last_updated": "2026-02-19 16:58:00 KST",
       "last_published_essay": "Essay_03",
-      "last_published_title": "희소성의 가치는 어디에서 시작되는가",
+      "last_published_title": "희소성은 무엇을 견딘 문장인가",
       "notion_page_url": "https://www.notion.so/30be6aeb59e68111a0cbefa858e0b9ae",
       "content_master_url": "https://www.notion.so/30ae6aeb59e681b1ad39e7b980f99734"
     },
@@ -44,10 +44,10 @@
     {
       "id": "essay_03",
       "name": "Essay_03",
-      "title": "희소성의 가치는 어디에서 시작되는가",
+      "title": "희소성은 무엇을 견딘 문장인가",
       "status": "published",
       "final_path": "Essay_team/Essay_03/final.md",
-      "published_at": "2026-02-19 16:16:01 KST"
+      "published_at": "2026-02-19 16:58:00 KST"
     }
   ],
   "summary": {
