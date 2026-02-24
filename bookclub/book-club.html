@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>북클럽 • 토론 페이지</title>
+  <meta name="description" content="요약, 나눔 프롬프트, 토론 질문, 댓글 기능이 있는 미니멀한 북클럽 페이지" />
+
+  <style>
+    :root{
+      --bg:#fbfbfa;
+      --panel:#ffffff;
+      --text:#121212;
+      --muted:#5b5b5b;
+      --line:#e8e7e4;
+      --accent:#1f6feb;
+      --radius:18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --max: 920px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{color:inherit}
+    .skip-link{
+      position:absolute; left:-999px; top:8px;
+      background:var(--panel); padding:10px 12px; border:1px solid var(--line);
+      border-radius:12px;
+    }
+    .skip-link:focus{left:12px; z-index:9999}
+
+    header{
+      padding: 28px 18px 12px;
+    }
+    .wrap{max-width:var(--max); margin:0 auto}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:10px 12px; border:1px solid var(--line);
+      background:rgba(255,255,255,.7);
+      backdrop-filter: blur(8px);
+      border-radius: 999px;
+      position:sticky; top:10px; z-index:50;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:650; letter-spacing:.2px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:var(--accent);
+    }
+    nav{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    nav a{
+      text-decoration:none;
+      font-size:14px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+    }
+    nav a:hover{border-color:var(--line); background:rgba(255,255,255,.6); color:var(--text)}
+    nav a:focus{outline:2px solid var(--accent); outline-offset:2px}
+
+    .hero{
+      margin-top:14px;
+      padding:22px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap:18px;
+      align-items:center;
+    }
+    .cover{
+      width:120px; aspect-ratio: 3 / 4;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      overflow:hidden;
+      background: #fff;
+    }
+    .cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .hero h1{
+      margin:0 0 6px;
+      font-size: clamp(22px, 3.2vw, 34px);
+      letter-spacing:-.4px;
+      line-height:1.15;
+    }
+    .meta{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: #fff;
+    }
+    .pill b{color:var(--text); font-weight:600}
+
+    main{padding: 12px 18px 60px}
+
+    section{
+      margin-top:16px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    section h2{
+      margin:0 0 10px;
+      font-size: 18px;
+      letter-spacing:-.2px;
+    }
+    .sub{
+      margin: -6px 0 14px;
+      color:var(--muted);
+      font-size: 14px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 15px;
+    }
+    ul, ol{padding-left: 18px; margin: 8px 0}
+    li{margin: 6px 0}
+
+    details{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding: 12px 12px;
+      background:#fff;
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      font-weight:600;
+    }
+    summary:focus{outline:2px solid var(--accent); outline-offset:4px}
+
+    .form{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    label{
+      font-size: 13px;
+      color: var(--muted);
+      display:block;
+      margin-bottom:6px;
+    }
+    input, textarea{
+      width:100%;
+      font: inherit;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    textarea{min-height: 120px; resize: vertical}
+    input:focus, textarea:focus{
+      outline:2px solid var(--accent);
+      outline-offset:2px;
+      border-color: transparent;
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 140px;
+      gap:10px;
+      align-items:end;
+    }
+    .hint{
+      font-size: 12px;
+      color: var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    button{
+      font: inherit;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: #fff;
+      cursor:pointer;
+    }
+    button.primary{
+      border-color: rgba(31,111,235,.35);
+      background: rgba(31,111,235,.08);
+    }
+    button:hover{filter: brightness(.98)}
+    button:focus{outline:2px solid var(--accent); outline-offset:2px}
+    button:disabled{
+      cursor:not-allowed;
+      opacity:.6;
+    }
+
+    .comments{
+      margin-top: 14px;
+      display:grid;
+      gap:10px;
+    }
+    .comment{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding: 12px;
+      background:#fff;
+    }
+    .commenthead{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+      margin-bottom:6px;
+    }
+    .commentname{
+      font-weight:650;
+      font-size: 14px;
+    }
+    .commenttime{
+      color:var(--muted);
+      font-size: 12px;
+      white-space:nowrap;
+    }
+    .commenttext{
+      margin:0;
+      white-space: pre-wrap;
+      overflow-wrap:anywhere;
+    }
+    .commentactions{
+      margin-top: 8px;
+      display:flex;
+      justify-content:flex-end;
+    }
+    .commentactions button{
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    footer{
+      padding: 22px 18px 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 720px){
+      .hero{grid-template-columns: 1fr; text-align:left}
+      .cover{width:100%; max-width:160px}
+      .grid{grid-template-columns: 1fr}
+      .row{grid-template-columns: 1fr}
+      nav{justify-content:flex-start}
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#content">본문으로 건너뛰기</a>
+
+  <header>
+    <div class="wrap">
+      <div class="topbar" role="navigation" aria-label="페이지">
+        <div class="brand"><span class="dot" aria-hidden="true"></span>북클럽</div>
+        <nav>
+          <a href="#summary">요약</a>
+          <a href="#stories">나눔</a>
+          <a href="#questions">질문</a>
+          <a href="#comments">댓글</a>
+        </nav>
+      </div>
+
+      <div class="hero">
+        <div class="cover">
+          <img src="./cover.jpeg" alt="바깥 일기 책 표지" />
+        </div>
+        <div>
+          <h1 id="content">바깥 일기</h1>
+          <p class="meta">
+            <span class="pill">저자: <b>아니 에르노</b></span>
+            <span class="pill">모임: <b>2026.02.26(목)</b></span>
+            <span class="pill">주제: <b>[1–3단어]</b></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">책 요약</h2>
+      <p class="sub">토론 중 빠르게 참고할 수 있는 핵심 요약입니다.</p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>한 문장 요약</h3>
+          <p>[책의 핵심 주장을 한 문장으로 간결하게 적어주세요.]</p>
+        </div>
+        <div class="card">
+          <h3>핵심 아이디어</h3>
+          <ul>
+            <li>[아이디어 #1]</li>
+            <li>[아이디어 #2]</li>
+            <li>[아이디어 #3]</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h3>인상 깊은 구절</h3>
+        <ul>
+          <li>“[인용문 또는 발췌문]” — [#]쪽</li>
+          <li>“[인용문 또는 발췌문]” — [#]쪽</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="stories" aria-labelledby="stories-title">
+      <h2 id="stories-title">함께 나눌 이야기</h2>
+      <p class="sub">개인적인 경험과 사례를 자연스럽게 꺼낼 수 있도록 돕는 질문입니다.</p>
+
+      <details>
+        <summary>1) 이 책이 불편할 만큼 사실적으로 느껴졌던 순간</summary>
+        <p>그 순간이 나의 습관, 관계, 혹은 고정관념에 대해 무엇을 드러냈나요?</p>
+      </details>
+
+      <details>
+        <summary>2) 책을 읽고 나서 다르게 내린 결정</summary>
+        <p>작은 변화도 좋습니다. 일상에서 생각이나 행동이 어떻게 달라졌나요?</p>
+      </details>
+
+      <details>
+        <summary>3) 책의 주제와 닮아 있는 내 삶의 장면</summary>
+        <p>그 장면을 짧게 설명하고, 어떤 챕터나 아이디어와 연결되는지 말해보세요.</p>
+      </details>
+    </section>
+
+    <section id="questions" aria-labelledby="questions-title">
+      <h2 id="questions-title">토론 질문</h2>
+      <p class="sub">대화를 이끌 질문들입니다. 시간에 맞춰 3–5개를 골라 진행하세요.</p>
+
+      <ol>
+        <li>[이 책에서 가장 설득력 있는 아이디어는 무엇이며, 그 이유는 무엇인가요?]</li>
+        <li>[저자가 과하게 일반화하거나 약한 가정을 한 부분은 어디인가요?]</li>
+        <li>[핵심 주장에 대해 회의적인 사람은 어떤 반박을 할까요?]</li>
+        <li>[이 책이 다뤘어야 하지만 놓친 주제는 무엇인가요?]</li>
+        <li>[이번 주에 적용해 볼 수 있는 아이디어 한 가지는 무엇인가요?]</li>
+      </ol>
+
+      <div class="card">
+        <h3>선택: 번개 라운드</h3>
+        <ul>
+          <li>가장 좋았던 문장은?</li>
+          <li>가장 헷갈렸던 개념은?</li>
+          <li>결말을 한 단어로 표현한다면?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="comments" aria-labelledby="comments-title">
+      <h2 id="comments-title">짧은 댓글 남기기</h2>
+      <p class="sub">
+        방문자는 짧은 메모를 남길 수 있습니다. 댓글은 이 기기에만 저장됩니다(서버 없음).
+      </p>
+
+      <form class="form" id="commentForm">
+        <div class="row">
+          <div>
+            <label for="name">이름 (선택)</label>
+            <input id="name" name="name" type="text" maxlength="40" placeholder="예: 미나" autocomplete="name" />
+          </div>
+          <div>
+            <button class="primary" id="submitBtn" type="submit" disabled>등록</button>
+          </div>
+        </div>
+
+        <div>
+          <label for="message">댓글 (최대 280자)</label>
+          <textarea id="message" name="message" maxlength="280" placeholder="짧은 생각, 질문, 혹은 좋아하는 문장을 남겨보세요…"></textarea>
+          <div class="hint">
+            <span id="status">서로를 존중하며 간단히 남겨주세요.</span>
+            <span><span id="count">0</span>/280</span>
+          </div>
+        </div>
+      </form>
+
+      <div class="comments" id="commentList" aria-live="polite" aria-label="댓글"></div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    팁: 대괄호로 표시된 자리표시자(예: <b>바깥 일기</b>)를 실제 내용으로 바꿔주세요.
+    방문자 간 댓글을 공유하려면 폼을 백엔드(Firebase/Supabase 등)와 연결하세요.
+  </footer>
+
+  <script>
+    // Minimal comment system: stores comments in localStorage (per browser/device).
+    const STORAGE_KEY = "bookclub_comments_v1";
+
+    const form = document.getElementById("commentForm");
+    const nameEl = document.getElementById("name");
+    const messageEl = document.getElementById("message");
+    const listEl = document.getElementById("commentList");
+    const submitBtn = document.getElementById("submitBtn");
+    const countEl = document.getElementById("count");
+    const statusEl = document.getElementById("status");
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>"']/g, (ch) => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[ch]));
+    }
+
+    function loadComments() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveComments(items) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }
+
+    function formatTime(ts) {
+      try {
+        return new Date(ts).toLocaleString(undefined, {
+          year: "numeric", month: "short", day: "2-digit",
+          hour: "2-digit", minute: "2-digit"
+        });
+      } catch {
+        return "";
+      }
+    }
+
+    function render() {
+      const items = loadComments().sort((a,b) => b.ts - a.ts);
+      if (items.length === 0) {
+        listEl.innerHTML = `
+          <div class="comment" role="note">
+            <div class="commenthead">
+              <div class="commentname">아직 댓글이 없습니다</div>
+              <div class="commenttime"></div>
+            </div>
+            <p class="commenttext">첫 댓글을 남겨보세요.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = items.map(item => {
+        const name = item.name?.trim() ? escapeHTML(item.name.trim()) : "익명";
+        const text = escapeHTML(item.text || "");
+        const time = formatTime(item.ts);
+        return `
+          <div class="comment" data-id="${item.id}">
+            <div class="commenthead">
+              <div class="commentname">${name}</div>
+              <div class="commenttime">${escapeHTML(time)}</div>
+            </div>
+            <p class="commenttext">${text}</p>
+            <div class="commentactions">
+              <button type="button" data-action="delete" aria-label="댓글 삭제">삭제</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateUI() {
+      const len = messageEl.value.length;
+      countEl.textContent = String(len);
+      const canPost = len > 0 && len <= 280;
+      submitBtn.disabled = !canPost;
+
+      if (len === 0) statusEl.textContent = "서로를 존중하며 간단히 남겨주세요.";
+      else if (len < 30) statusEl.textContent = "좋아요. 한 줄만 더 써볼까요?";
+      else if (len > 260) statusEl.textContent = "글자 수 제한에 거의 도달했어요.";
+      else statusEl.textContent = "등록할 준비가 됐어요.";
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const text = messageEl.value.trim();
+      if (!text) return;
+
+      const item = {
+        id: crypto?.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2),
+        name: nameEl.value.trim().slice(0, 40),
+        text: text.slice(0, 280),
+        ts: Date.now()
+      };
+
+      const items = loadComments();
+      items.push(item);
+      saveComments(items);
+
+      messageEl.value = "";
+      updateUI();
+      render();
+    });
+
+    listEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action='delete']");
+      if (!btn) return;
+
+      const commentEl = e.target.closest(".comment");
+      const id = commentEl?.getAttribute("data-id");
+      if (!id) return;
+
+      const items = loadComments().filter(x => x.id !== id);
+      saveComments(items);
+      render();
+    });
+
+    messageEl.addEventListener("input", updateUI);
+
+    // Initial paint
+    updateUI();
+    render();
+  </script>
+</body>
+</html>
