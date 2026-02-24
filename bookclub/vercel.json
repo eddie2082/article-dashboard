@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/book-club.html"
+      "destination": "/book-club"
     }
   ]
 }
