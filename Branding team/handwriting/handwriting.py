@@ -1,6 +1,6 @@
 """한글 텍스트 → 분필 손글씨 PNG (배경 투명).
 
-기본 설정: Hi Melody 기반 '성인 글씨' 스타일 (자간 축소, 우측 기울기, 폭 축소, 가는 분필 질감).
+기본 설정: 나눔손글씨 펜체 기반 흘림 손글씨 스타일 (살짝 우측 기울기, 가는 분필 질감).
 
 사용법:
     python3 handwriting.py "뮤지엄은 우리 사회에서\\n어떤 공간이 되어야 할까" out.png
@@ -15,14 +15,14 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-# 기본 설정 (2026-10 확정: "성인 글씨" A 버전)
+# 기본 설정 (2026-10 확정: 나눔손글씨 펜체 B 버전)
 DEFAULTS = dict(
-    font="hi-melody",    # fonts/<name>/ 아래의 woff 서브셋 묶음
-    size=160,            # 글자 크기(px)
+    font="nanum-pen-script",    # fonts/<name>/ 아래의 woff 서브셋 묶음
+    size=190,            # 글자 크기(px)
     color="#F8F8F4",     # 글자 색 (분필 흰색)
-    track=-0.04,         # 자간 (글자 크기 대비 비율, 음수=좁게)
-    slant=0.16,          # 우측 기울기 (shear 비율, 0.16 ≈ 9°)
-    condense=0.88,       # 가로 폭 비율
+    track=0.0,           # 자간 (글자 크기 대비 비율, 음수=좁게)
+    slant=0.06,          # 우측 기울기 (shear 비율, 0.06 ≈ 3.4°)
+    condense=1.0,        # 가로 폭 비율
     thin=3,              # 획 가늘게 (MinFilter 크기, 0=끄기)
     rot=2.0,             # 글자별 회전 흔들림(±도)
     jit=0.02,            # 글자별 높낮이 흔들림 (크기 대비)
